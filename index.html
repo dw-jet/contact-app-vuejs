@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Contact Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bulma/css/bulma.min.css">
+    <link rel="stylesheet" href="index.css">
+  </head>
+  <body>
+    <div id="app" class="container" v-on:keyup.ctrl.enter="addContact">
+      <div class="box">
+      <form>
+        <fieldset class="box">
+          <legend class="is-size-4">Name</legend>
+          <div>
+            <label for="firstName" class="label">First:</label>
+            <input name="firstName" class="input" placeholder="James" v-model.trim="contact.first">
+          </div>
+          <div>
+            <label for="lastName" class="label">Last:</label>
+            <input name="lastName" class="input" placeholder="Bond" v-model.trim="contact.last">
+          </div>
+          <div>
+            <label for="company" class="label">Company:</label>
+            <input name="company" class="input" placeholder="ACME Inc." v-model.trim="contact.company">
+          </div>
+        </fieldset>
+        <fieldset class="box">
+          <legend class="is-size-4">Contact Info</legend>
+          <div>
+            <label for="cell" class="label">Cell <small class="is-size-7">(10 digit)</small>:</label>
+            <input name="cell" class="input" placeholder="1234567890" type="tel" minlength="10" maxlength="10" v-model.trim="contact.cell">
+          </div>
+          <div>
+            <label for="office" class="label">Office: <small class="is-size-7">(10 digit)</small></label>
+            <input name="office" class="input" placeholder="1234567890" type="tel" minlength="10" maxlength="10" v-model.trim="contact.office">
+          </div>
+          <div>
+            <label for="email" class="label">Email:</label>
+            <input name="email" class="input" type="email" placeholder="john.doe@acme.com" v-model.trim="contact.email">
+          </div>
+        </fieldset>
+        <div class = "buttons">
+          <button type="button" class="button is-dark bottom-space" v-on:click="addContact()">Save</button>
+        </div>
+      </form>
+      </div>
+      <div class="box">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>First</th>
+              <th>Last</th>
+              <th>Cell</th>
+              <th>Office</th>
+              <th>Email</th>
+              <th>Company</th>
+            </tr>     
+          </thead>
+          <tbody>
+            <tr v-for="person in contacts">
+              <td>{{person.first}}</td>
+              <td>{{person.last}}</td>
+              <td>{{person.cell | phoneMask("N/A")}}</td>
+              <td>{{person.office | phoneMask('N/A')}}</td>
+              <td>{{person.email}}</td>
+              <td>{{person.company}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
